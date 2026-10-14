@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <div class="card">
+        <div class="search-box">
+            <input type="text" id="city-input" placeholder="Masukkan nama kota..." autocomplete="off">
+            <button id="search-btn">Cari</button>
+        </div>
+
+        <div class="state-msg hidden" id="loading-msg">
+            <p>Memuat data cuaca...</p>
+        </div>
+
+        <div id="error-msg" class="state-msg error hidden">
+            <p>Kota tidak ditemukan. Coba ketik nama kota lain!</p>
+        </div>
+
+        <!-- Weather Information Card -->
+         <div id="weather-info" class="weather-info hidden">
+            <div class="weather-main">
+                <img src="" alt="">
+                <h2 id="city-name">-</h2>
+                <p id="temperature" class="temp">0°C</p>
+                <p id="description" class="description">-</p>
+            </div>
+
+            <div class="details grid">
+                <div class="detail-item">
+                    <span class="label">Kelembapan</span>
+                    <span id="humidity" class="label">0%</span>
+                </div>
+                <div class="detail-item">
+                    <span class="label">Kecepatan Angin</span>
+                    <span id="wind" class="value">0 m/s</span>
+                </div>
+            </div>
+         </div>
+    </div>
+
+    <script src="assets/js/api.js"></script>
+    <script src="assets/js/app.js"></script>
+</body>
+</html>
