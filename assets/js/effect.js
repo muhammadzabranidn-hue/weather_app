@@ -59,7 +59,7 @@ const Fx = (() => {
         cancelAnimationFrame(raf); resize(); ctx.clearRect(0, 0, w, h);
         if (mode && !reduce) raf = requestAnimationFrame(frame);
         lightning();
-        document.querySelector('meta[name="theme-color"]').content = name === "clear-day" ? "#1a6fd8" : "#0a1020";
+        document.querySelector('meta[name="theme-color"]')?.setAttribute("content", name === "clear-day" ? "#1a6fd8" : "#0a1020");
       }
     };
   })();
