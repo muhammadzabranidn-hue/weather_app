@@ -6,6 +6,10 @@ A modern, responsive, and secure Weather Dashboard built with **Vanilla HTML, CS
 
 ---
 
+## Deployment
+
+Deployed in Vercel
+
 ## ✨ Features
 
 * **Dynamic Sky Backgrounds**: Automatically switches themes and gradient layers (Clear Day, Night, Rain, Thunder, Snow, etc.) based on real-time weather conditions.
