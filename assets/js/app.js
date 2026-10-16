@@ -2,10 +2,12 @@ const $ = id => document.getElementById(id);
 const form = $("search-form"), cityInput = $("city-input"), searchBtn = $("search-btn");
 const seg = $("unit-seg");
 const views = { intro: $("intro"), loading: $("loading-msg"), error: $("error-msg"), result: $("weather-info") };
+
 const store = {
   get(k, d) { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch { return d; } },
   set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch { /* storage tidak tersedia */ } }
 };
+
 let busy = false, shownTemp = 0, last = null; // last = { d: cuaca, f: prakiraan }
 let unit = store.get("weather.unit", "c");
 let recent = store.get("weather.recent", []);
@@ -107,6 +109,7 @@ function paintRecent() {
   recent.forEach(c => chip(c, "", () => { if (busy) return; cityInput.value = c; form.requestSubmit(); }));
   if (recent.length) chip("Hapus", "clear", () => { recent = []; store.set("weather.recent", recent); paintRecent(); });
 }
+
 function remember(name) {
   recent = [name, ...recent.filter(c => c.toLowerCase() !== name.toLowerCase())].slice(0, 5);
   store.set("weather.recent", recent); paintRecent();
