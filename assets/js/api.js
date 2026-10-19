@@ -1,19 +1,14 @@
 const weather_api_key = "b33f48533cbf0d447d6ffb023e63686d";
-
-async function fetchWeatherData(city) {
-    const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${weather_api_key}&units=metric&lang=id`);
-    if (!response.ok) {
-        throw new Error('Weather data not found');
-    }
-    const data = await response.json();
-    return data;
+const API_BASE = "https://api.openweathermap.org";
+// Menerima nama kota (string) atau koordinat {lat, lon}
+const qs = c => typeof c === "string" ? `q=${encodeURIComponent(c)}` : `lat=${c.lat}&lon=${c.lon}`;
+async function getJSON(path) {
+    const r = await fetch(`${API_BASE}${path}&appid=${weather_api_key}`);
+    if (!r.ok) throw new Error(r.status);
+    return r.json();
 }
-
-// Prakiraan 5 hari, interval 3 jam (endpoint gratis OpenWeatherMap)
-async function fetchForecastData(city) {
-    const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${encodeURIComponent(city)}&appid=${weather_api_key}&units=metric&lang=id&cnt=9`);
-    if (!response.ok) {
-        throw new Error('Forecast data not found');
-    }
-    return response.json();
-}
+const fetchWeatherData = c => getJSON(`/data/2.5/weather?${qs(c)}&units=metric&lang=id`);
+// Prakiraan 5 hari, interval 3 jam (40 data)
+const fetchForecastData = c => getJSON(`/data/2.5/forecast?${qs(c)}&units=metric&lang=id&cnt=40`);
+const fetchAirQuality = ({ lat, lon }) => getJSON(`/data/2.5/air_pollution?lat=${lat}&lon=${lon}`);
+const fetchSuggestions = q => getJSON(`/geo/1.0/direct?q=${encodeURIComponent(q)}&limit=5`);
