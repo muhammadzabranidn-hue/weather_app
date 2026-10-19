@@ -44,3 +44,11 @@ weather-app/
 ├── .gitignore                 
 ├── index.html                 
 └── README.md                 
+
+---
+
+## 🚀 Fitur Tambahan (v2)
+
+* **Dashboard awal interaktif**: sapaan + jam live, cuaca 6 kota dunia secara real-time, tombol *Lokasi saya* (geolocation), fakta cuaca acak.
+* **Autocomplete kota** (OpenWeatherMap Geocoding) dan **kota favorit** (★) tersimpan di `localStorage`.
+* **Grafik suhu 24 jam**, **prakiraan 5 hari** dengan rentang suhu, **kualitas udara (AQI)**, arah angin, dan **skor + saran aktivitas luar ruang**.
