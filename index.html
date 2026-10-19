@@ -19,6 +19,7 @@
       <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
       <input type="search" id="city-input" placeholder="Cari kota" autocomplete="off" aria-label="Nama kota">
       <button type="submit" id="search-btn">Cari</button>
+      <ul id="suggest" class="suggest hidden" role="listbox" aria-label="Saran kota"></ul>
     </form>
 
     <div class="meta">
@@ -31,9 +32,11 @@
     </div>
 
     <section id="intro" class="intro">
+      <p class="clock" id="clock"></p>
       <h1>Weather</h1>
       <p class="lead">Cek kondisi cuaca terkini di kota mana pun di dunia, lengkap dengan prakiraan sampai 24 jam ke depan.</p>
       <div class="try"><span>Coba cari</span>
+        <button type="button" class="chip locate" id="locate">📍 Lokasi saya</button>
         <button type="button" class="chip" data-city="Jakarta">Jakarta</button>
         <button type="button" class="chip" data-city="Bandung">Bandung</button>
         <button type="button" class="chip" data-city="Surabaya">Surabaya</button>
@@ -41,11 +44,19 @@
         <button type="button" class="chip" data-city="London">London</button>
       </div>
 
+      <div class="try favs" id="favs"></div>
+
+      <section class="world" aria-label="Cuaca dunia saat ini">
+        <h2>Cuaca dunia saat ini</h2>
+        <div class="world-grid" id="world-grid"></div>
+      </section>
+
       <div class="tiles intro-tiles">
         <article class="tile" style="--i:0"><h3>Kondisi saat ini</h3><strong>28°</strong><p>Suhu, kondisi langit, serta suhu tertinggi dan terendah hari ini.</p></article>
         <article class="tile" style="--i:1"><h3>Prakiraan</h3><strong>3 jam</strong><p>Suhu dan peluang hujan untuk sekitar 24 jam ke depan.</p></article>
         <article class="tile" style="--i:2"><h3>Detail udara</h3><strong>78%</strong><p>Terasa seperti, kelembapan, angin, tekanan, jarak pandang, dan awan.</p></article>
         <article class="tile" style="--i:3"><h3>Matahari</h3><strong>05.52</strong><p>Jam terbit dan terbenam sesuai waktu lokal kota.</p></article>
+        <article class="tile tile-wide fact" style="--i:5"><h3>Tahukah kamu?</h3><p id="fact-text"></p><button type="button" class="chip" id="fact-next">Fakta lain</button></article>
         <article class="tile tile-wide" style="--i:4"><h3>Latar yang mengikuti cuaca</h3><p>Warna langit dan efek hujan, salju, atau bintang berubah sesuai cuaca dan waktu siang atau malam di kota yang kamu cari.</p></article>
       </div>
       <p class="fine">Angka pada kartu hanya contoh. Ganti satuan °C atau °F kapan saja; pencarian terakhir tersimpan di perangkatmu.</p>
@@ -65,6 +76,7 @@
         <p id="temperature" class="temp">0°</p>
         <p id="description" class="description">-</p>
         <p id="range" class="range">-</p>
+        <button type="button" class="favbtn" id="fav" aria-pressed="false">☆ Favorit</button>
       </header>
 
       <section class="hourly hidden" id="hourly" aria-label="Prakiraan per 3 jam">
@@ -72,13 +84,18 @@
         <ol id="hourly-list"></ol>
       </section>
 
+      <section class="card" id="chart-box"><h3>Grafik suhu 24 jam</h3><svg id="chart" viewBox="0 0 320 112" role="img" aria-label="Grafik suhu"></svg></section>
+      <section class="card advice" id="advice"></section>
+      <section class="card hidden" id="daily-box"><h3>Prakiraan 5 hari</h3><ul id="daily"></ul></section>
+
       <div class="tiles" id="tiles">
         <article class="tile"><h3>Terasa seperti</h3><strong id="feels">-</strong><p id="feels-note">-</p></article>
         <article class="tile"><h3>Kelembapan</h3><strong id="humidity">0%</strong><p id="humidity-note">-</p></article>
-        <article class="tile"><h3>Angin</h3><strong id="wind">0 m/s</strong><p id="wind-note">-</p></article>
+        <article class="tile"><h3>Angin</h3><span class="arrow" id="wind-arrow" aria-hidden="true">↑</span><strong id="wind">0 m/s</strong><p id="wind-note">-</p></article>
         <article class="tile"><h3>Tekanan</h3><strong id="pressure">-</strong><p>hPa</p></article>
         <article class="tile"><h3>Jarak pandang</h3><strong id="visibility">-</strong><p id="visibility-note">-</p></article>
         <article class="tile"><h3>Awan</h3><strong id="clouds">-</strong><p>Tutupan langit</p></article>
+        <article class="tile tile-wide"><h3>Kualitas udara</h3><strong id="aqi">-</strong><p id="aqi-note">-</p><div class="bar"><i id="aqi-bar"></i></div></article>
         <article class="tile tile-sun">
           <h3>Matahari</h3>
           <div class="sun-times"><div><span>Terbit</span><strong id="sunrise">-</strong></div><div><span>Terbenam</span><strong id="sunset">-</strong></div></div>
@@ -91,5 +108,6 @@
     <script src="assets/js/configExample.js"></script>
     <script src="assets/js/api.js"></script>
     <script src="assets/js/app.js"></script>
+    <script src="assets/js/features.js"></script>
 </body>
 </html>
