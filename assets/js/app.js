@@ -46,11 +46,11 @@ function countTo(target) {
 
 // Semua angka suhu dibaca dari °C lalu dikonversi di sini
 function paintTemps() {
+  document.querySelectorAll("[data-c]").forEach(b => { b.textContent = `${deg(+b.dataset.c)}°`; });
   if (!last) return;
   const m = last.d.main;
   $("feels").textContent = `${deg(m.feels_like)}°`;
   $("range").textContent = `T: ${deg(m.temp_max)}°  R: ${deg(m.temp_min)}°`;
-  document.querySelectorAll("[data-c]").forEach(b => { b.textContent = `${deg(+b.dataset.c)}°`; });
   countTo(deg(m.temp));
 }
 
@@ -95,6 +95,7 @@ function render(d, f) {
 
   document.querySelectorAll(".tile").forEach((t, i) => t.style.setProperty("--i", i));
   Fx.theme(themeOf(w));
+  Extra.after(d, f);
   paintHourly();
   paintTemps();
 }
@@ -121,9 +122,10 @@ function setUnit(u) {
   paintTemps();
 }
 
-async function handleSearch(e) {
-  e.preventDefault();
-  const city = cityInput.value.trim();
+function handleSearch(e) { e.preventDefault(); search(cityInput.value.trim()); }
+
+// city: nama kota (string) atau koordinat {lat, lon}
+async function search(city) {
   if (!city || busy) return;
   busy = true; searchBtn.disabled = true; cityInput.blur();
   show("loading");
