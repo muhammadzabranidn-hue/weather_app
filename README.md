@@ -43,7 +43,9 @@ weather-app/
 │       └── effect.js
 ├── .gitignore                 
 ├── index.html                 
-└── README.md                 
+└── README.md
+
+```             
 
 ---
 
